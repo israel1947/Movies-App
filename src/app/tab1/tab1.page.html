@@ -1,17 +1,17 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+ <ion-slides  [options]="slideOpts">
+   <ion-slide *ngFor="let slide of recientMovies" >
+     <ion-card>
+       <ion-img mode="ios" [src]="slide.poster_path | imagen"></ion-img>
+       <ion-card-header>
+         <ion-card-subtitle></ion-card-subtitle>
+         <ion-card-title>{{slide.title}}</ion-card-title>
+       </ion-card-header>
+       <ion-card-content>
+         Awesome content
+       </ion-card-content>
+     </ion-card>
+   </ion-slide>
+ </ion-slides>
 </ion-content>
