@@ -1,17 +1,19 @@
 
 <ion-content [fullscreen]="true">
- <ion-slides  [options]="slideOpts">
-   <ion-slide *ngFor="let slide of recientMovies" >
-     <ion-card>
-       <ion-img mode="ios" [src]="slide.poster_path | imagen"></ion-img>
-       <ion-card-header>
-         <ion-card-subtitle></ion-card-subtitle>
-         <ion-card-title>{{slide.title}}</ion-card-title>
-       </ion-card-header>
-       <ion-card-content>
-         Awesome content
-       </ion-card-content>
-     </ion-card>
-   </ion-slide>
- </ion-slides>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col >
+        <h3>New Movies</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ <app-slideshow-backdrop [recientMovies]="recientMovies"></app-slideshow-backdrop>
+ <ion-grid fixed>
+  <ion-row>
+    <ion-col >
+      <h3>Billboard</h3>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+ <app-slideshow-poster [recientMovies]="recientMovies"></app-slideshow-poster>
 </ion-content>

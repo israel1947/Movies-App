@@ -10,13 +10,7 @@ import { ResultMovies } from '../interfaces/interfaces';
 export class Tab1Page implements OnInit {
 
   recientMovies:ResultMovies[]=[];
-  //options 
-   slideOpts = {
-    slidesPerView: 1.1,
-    initialSlide: 1,
-    speed: 400,
-  };
-
+  
   constructor( private movieServices:MoviesService) {}
 
   ngOnInit(): void {
