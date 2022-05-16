@@ -20,7 +20,7 @@ export class MoviesService {
   private ejectQuery<T>(query:string){
     query =  URL + query;
     query += `&language=es&api_key=${api_key}`;
-    return this.hppt.get<MoviesResponse>(query);
+    return this.hppt.get<T>(query);
   } 
 
   //get recient movies 
@@ -44,7 +44,7 @@ export class MoviesService {
     //obtain the last day of present month
     const end = `${today.getFullYear()}-${monthString}-${lastDay}`
 
-    return this.ejectQuery(`/discover/movie?primary_release_date.gte=${start}&primary_release_date.lte=${end}`)
+    return this.ejectQuery<MoviesResponse>(`/discover/movie?primary_release_date.gte=${start}&primary_release_date.lte=${end}`)
   }
 
 
@@ -52,15 +52,15 @@ export class MoviesService {
   getMovieByPoularity(){
     this.popularityPage++;
     const query = `/discover/movie?sort_by=popularity.desc&page=${this.popularityPage}`
-    return this.ejectQuery(query);
+    return this.ejectQuery<MoviesResponse>(query);
   }
 
   getDetailOfMovie(id){
     return this.ejectQuery<MoviesDetails>(`/movie/${id}?a=1`);
   }
-
+//https://api.themoviedb.org/3/movie/628900?api_key=d0dfa05a65b3a18bd432149a75bb9f84
   getActorsMovies(id){
-    return this.ejectQuery<MoviesDetails>(`/movie/${id}?a=1credits?a=1`);
+    return this.ejectQuery<MoviesDetails>(`/movie/${id}/credits?a=1`);
   }
 
 }
