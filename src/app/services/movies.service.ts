@@ -46,4 +46,10 @@ export class MoviesService {
   }
 
 
+  //get movies by popularity
+  getMovieByPoularity(){
+    const query = '/discover/movie?sort_by=popularity.desc'
+    return this.ejectQuery(query)
+  }
+
 }

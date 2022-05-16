@@ -1,0 +1,11 @@
+<ion-slides [options]="slideOpts" >
+  <ion-slide *ngFor="let slidePares of recientMovies | slidePares" >
+    <ion-row>
+      <ion-col size="12" *ngFor="let movies of slidePares">
+        <ion-card>
+          <ion-img class="poster" mode="ios" [src]="movies.poster_path | imagen"></ion-img>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-slide>
+</ion-slides> 
