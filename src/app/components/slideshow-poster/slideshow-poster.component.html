@@ -1,7 +1,7 @@
 <ion-slides [options]="slideOpts" >
-  <ion-slide *ngFor="let slide of recientMovies" >
+  <ion-slide *ngFor="let recientMovies of recientMovies" >
     <ion-card>
-      <ion-img class="poster" mode="ios" [src]="slide.poster_path | imagen"></ion-img>
+      <ion-img class="poster" mode="ios" [src]="recientMovies.poster_path | imagen"></ion-img>
     </ion-card>
   </ion-slide>
 </ion-slides> 

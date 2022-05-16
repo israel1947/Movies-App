@@ -12,7 +12,7 @@ export class SlideParesPipe implements PipeTransform {
       }
       return result;
    },[]);
-    console.log( pares );
+    //console.log( pares );
     return pares;
   }
 

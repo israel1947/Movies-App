@@ -19,12 +19,21 @@ export class Tab1Page implements OnInit {
         .subscribe(resp =>{
           this.recientMovies = resp.results;
         })
+        this.getPopularity();
+       
+  }
 
-        this.movieServices.getMovieByPoularity()
-          .subscribe(re =>{
-            console.log(re);
-            this.popularity = re.results
-          })
+  loadMore(){
+    this.getPopularity();
+  }
+
+  getPopularity(){
+    this.movieServices.getMovieByPoularity()
+    .subscribe(re =>{
+      const arrTemp = [...this.popularity,...re.results]
+      this.popularity= arrTemp;
+      //this.popularity = re.results
+    })
   }
 
   

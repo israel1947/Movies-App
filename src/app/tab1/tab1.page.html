@@ -23,5 +23,5 @@
     </ion-col>
   </ion-row>
 </ion-grid>
- <app-slideshow-pares [recientMovies]="popularity"></app-slideshow-pares>
+ <app-slideshow-pares [recientMovies]="popularity" (loadMore)="loadMore()"></app-slideshow-pares>
 </ion-content>

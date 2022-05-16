@@ -13,6 +13,8 @@ const URL = environment.url
 })
 export class MoviesService {
 
+  private popularityPage:number=0;
+
   constructor( private hppt:HttpClient) { }
 
   private ejectQuery<T>(query:string){
@@ -48,8 +50,9 @@ export class MoviesService {
 
   //get movies by popularity
   getMovieByPoularity(){
-    const query = '/discover/movie?sort_by=popularity.desc'
-    return this.ejectQuery(query)
+    this.popularityPage++;
+    const query = `/discover/movie?sort_by=popularity.desc&page=${this.popularityPage}`
+    return this.ejectQuery(query);
   }
 
 }
