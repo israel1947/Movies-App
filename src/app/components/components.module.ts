@@ -5,7 +5,7 @@ import { SlideshowBackdropComponent } from './slideshow-backdrop/slideshow-backd
 import { PipesModule } from '../pipes/pipes.module';
 import { SlideshowPosterComponent } from './slideshow-poster/slideshow-poster.component';
 import { SlideshowParesComponent } from './slideshow-pares/slideshow-pares.component';
-import { SlideParesPipe } from '../pipes/slide-pares.pipe';
+import { ModalDetailsComponent } from './modal-details/modal-details.component';
 
 
 
@@ -14,6 +14,7 @@ import { SlideParesPipe } from '../pipes/slide-pares.pipe';
     SlideshowBackdropComponent,
     SlideshowPosterComponent,
     SlideshowParesComponent,
+    ModalDetailsComponent
     
   ],
   imports: [
@@ -24,7 +25,8 @@ import { SlideParesPipe } from '../pipes/slide-pares.pipe';
   exports:[
     SlideshowBackdropComponent,
     SlideshowPosterComponent,
-    SlideshowParesComponent
+    SlideshowParesComponent,
+    ModalDetailsComponent
   ]
 })
 export class ComponentsModule { }

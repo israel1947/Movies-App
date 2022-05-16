@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { MoviesResponse } from '../interfaces/interfaces';
+import { MoviesResponse, MoviesDetails } from '../interfaces/interfaces';
 
 
 //call the api key defined in the enviroment
@@ -55,4 +55,15 @@ export class MoviesService {
     return this.ejectQuery(query);
   }
 
+  getDetailOfMovie(id){
+    return this.ejectQuery<MoviesDetails>(`/movie/${id}?a=1`);
+  }
+
+  getActorsMovies(id){
+    return this.ejectQuery<MoviesDetails>(`/movie/${id}?a=1credits?a=1`);
+  }
+
 }
+
+
+

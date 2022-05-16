@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { ResultMovies } from 'src/app/interfaces/interfaces';
+import { ModalDetailsComponent } from '../modal-details/modal-details.component';
 
 @Component({
   selector: 'app-slideshow-poster',
@@ -16,8 +18,17 @@ export class SlideshowPosterComponent implements OnInit {
     speed: 400,
   };
   
-  constructor() { }
+  constructor( private modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
+  async onShowModal(id){
+    const modal = await this.modalCtrl.create({
+      component:ModalDetailsComponent,
+      componentProps:{
+        id,
+      }
+    })
+    modal.present();
+  }
 }

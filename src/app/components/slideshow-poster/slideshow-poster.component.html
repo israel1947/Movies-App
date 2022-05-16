@@ -1,6 +1,6 @@
 <ion-slides [options]="slideOpts" >
   <ion-slide *ngFor="let recientMovies of recientMovies" >
-    <ion-card>
+    <ion-card (click)="onShowModal(recientMovies.id)">
       <ion-img class="poster" mode="ios" [src]="recientMovies.poster_path | imagen"></ion-img>
     </ion-card>
   </ion-slide>
