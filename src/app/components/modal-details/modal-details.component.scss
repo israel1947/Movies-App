@@ -14,17 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .vote-average{
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        padding: 5px;
-        text-align: center;
-        border-radius: 10px;
-        background: rgba(55, 55, 55, 0.15);
-        backdrop-filter: blur( 8.5px );
-        
-    }
+    
 }
 .toolbar{
     position: absolute;

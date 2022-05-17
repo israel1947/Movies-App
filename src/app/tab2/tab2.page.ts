@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {  ResultMovies } from '../interfaces/interfaces';
+import { ResultMovies, MoviesResponse } from '../interfaces/interfaces';
 import { MoviesService } from '../services/movies.service';
+import { ModalController } from '@ionic/angular';
+import { ModalDetailsComponent } from '../components/modal-details/modal-details.component';
 
 @Component({
   selector: 'app-tab2',
@@ -10,9 +12,13 @@ import { MoviesService } from '../services/movies.service';
 export class Tab2Page implements OnInit {
 
   popularity:ResultMovies[]=[];
+  movies:ResultMovies[]=[];
   textSearch='';
   isHiden=100;
-  constructor( private movieServices:MoviesService ) {}
+  public load:boolean=false;
+
+  constructor( private movieServices:MoviesService,
+               private modalCtrl:ModalController ) {}
 
   ngOnInit(): void {
     this.movieServices.getMovieByPoularity()
@@ -20,15 +26,34 @@ export class Tab2Page implements OnInit {
       this.popularity = re.results
     })
   }
-
-
   onSearchChange(event){
     const valueSearch = event.detail.value
-    this.movieServices.getSearchMovie(valueSearch)
+    if(valueSearch.length ===0 ){
+      this.load = false;
+      this.movies = [];
+      return;
+    }
+    this.load = true;
+      this.movieServices.getSearchMovie(valueSearch)
       .subscribe(resp=>{
+        this.movies = resp['results'];
         console.log(resp);
+        this.load = false;
       })
-    console.log(valueSearch);
+  }
+
+  get historial(){
+    return this.movieServices.historial;
+  }
+
+   async onShowModal(id){
+    const modal = await this.modalCtrl.create({
+      component:ModalDetailsComponent,
+      componentProps:{
+        id,
+      }
+    })
+    modal.present();
   }
 
 }

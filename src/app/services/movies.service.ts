@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { MoviesResponse, MoviesDetails } from '../interfaces/interfaces';
+import { MoviesResponse, MoviesDetails, ResultMovies } from '../interfaces/interfaces';
 
 
 //call the api key defined in the enviroment
@@ -14,8 +14,23 @@ const URL = environment.url
 export class MoviesService {
 
   private popularityPage:number=0;
+  private _historial:string[]= [];
+  public resultado:ResultMovies[]=[]
+  get historial(){
+    return [...this._historial];
+  }
 
-  constructor( private hppt:HttpClient) { }
+  constructor( private hppt:HttpClient) {
+
+    if( localStorage.getItem('historial') ){
+      this._historial=JSON.parse( localStorage.getItem('historial')!);
+    }
+
+    if(localStorage.getItem('resultado') ){
+      this.resultado=JSON.parse( localStorage.getItem('resultado')!);
+    }
+
+   }
 
   private ejectQuery<T>(query:string){
     query =  URL + query;
@@ -65,7 +80,15 @@ export class MoviesService {
   }
 
   //search movie
-  getSearchMovie(textSearch:String){
+  getSearchMovie(textSearch){
+    textSearch = textSearch.trim().toLowerCase();
+
+    if(!this._historial.includes(textSearch)){
+      this._historial.unshift(textSearch);
+      this._historial = this._historial.splice(0,10)
+      localStorage.setItem('historial', JSON.stringify(this._historial))
+    }
+    localStorage.setItem('historial', JSON.stringify(this._historial));
     return this.ejectQuery(`/search/movie?query=${textSearch}`);
   }
 

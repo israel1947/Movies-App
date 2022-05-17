@@ -16,23 +16,48 @@
                  [value]="textSearch"
                  showCancelButton="focus">
   </ion-searchbar>
-  <ion-grid >
+  <ion-grid *ngIf="load" >
     <ion-row>
       <ion-col class="ion-text-center">
         <ion-spinner name="bubbles"></ion-spinner>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let movie of movies">
+        <ion-card (click)="onShowModal(movie.id)" >
+          <img [src]="movie.poster_path | imagen" *ngIf="movie.poster_path" >
+          <ion-card-header>
+            <ion-card-subtitle>{{movie.release_date}}</ion-card-subtitle>
+            <ion-card-title>{{movie.title}}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-toolbar>
 <ion-content [fullscreen]="true">
-  <ion-list>
-      <ion-list-header>
+  <ion-grid *ngIf="movies.length === 0" >
+    <ion-row >
+      <ion-col class="ion-margin-start">
         <ion-label class="ion-text-center">
-          <h1>Popular Searches</h1>
+          <h1>Historial</h1>
         </ion-label>
-      </ion-list-header>
+        <ion-chip color="primary" mode="ios" outline="true"  *ngFor="let item of historial">
+          <ion-label>{{item}}</ion-label>
+        </ion-chip> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngIf="movies.length === 0">
+    <ion-list-header>
+      <ion-label class="ion-text-center">
+        <h2>Popular Searches</h2>
+       </ion-label>
+    </ion-list-header>
   </ion-list>
-  <ion-grid class="ion-padding" >
+  <ion-grid class="ion-padding" *ngIf="movies.length === 0" >
     <ion-row *ngFor="let recomendations of popularity" (click)="textSearch = recomendations.title">
       <ion-col size="4" >
           <img class="poster" [src]="recomendations.poster_path | imagen" *ngIf="recomendations.poster_path">
