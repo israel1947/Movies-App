@@ -58,9 +58,15 @@ export class MoviesService {
   getDetailOfMovie(id){
     return this.ejectQuery<MoviesDetails>(`/movie/${id}?a=1`);
   }
-//https://api.themoviedb.org/3/movie/628900?api_key=d0dfa05a65b3a18bd432149a75bb9f84
+
+  //https://api.themoviedb.org/3/movie/628900?api_key=d0dfa05a65b3a18bd432149a75bb9f84
   getActorsMovies(id){
     return this.ejectQuery<MoviesDetails>(`/movie/${id}/credits?a=1`);
+  }
+
+  //search movie
+  getSearchMovie(textSearch:String){
+    return this.ejectQuery(`/search/movie?query=${textSearch}`);
   }
 
 }

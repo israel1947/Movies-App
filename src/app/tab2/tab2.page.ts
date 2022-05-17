@@ -9,7 +9,6 @@ import { MoviesService } from '../services/movies.service';
 })
 export class Tab2Page implements OnInit {
 
-  //recientMovies:ResultMovies[]=[]
   popularity:ResultMovies[]=[];
   textSearch='';
   isHiden=100;
@@ -22,10 +21,13 @@ export class Tab2Page implements OnInit {
     })
   }
 
-  
 
   onSearchChange(event){
     const valueSearch = event.detail.value
+    this.movieServices.getSearchMovie(valueSearch)
+      .subscribe(resp=>{
+        console.log(resp);
+      })
     console.log(valueSearch);
   }
 
