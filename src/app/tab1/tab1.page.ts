@@ -19,8 +19,8 @@ export class Tab1Page implements OnInit {
         .subscribe(resp =>{
           this.recientMovies = resp.results;
         })
-        this.getPopularity();
-       
+        
+      this.getPopularity();
   }
 
   loadMore(){

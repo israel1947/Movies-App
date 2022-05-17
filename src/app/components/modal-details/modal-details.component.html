@@ -1,10 +1,9 @@
-
 <ion-content>
   <ion-toolbar class="toolbar" color="transparent">
     <ion-buttons slot="start" (click)="onModalClose()">
         <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-buttons>
-    <ion-buttons slot="end" (click)="onFavorite()">
+    <ion-buttons class="ion-margin-end" slot="end" (click)="onFavorite()">
       <ion-icon name="bookmark-outline"></ion-icon>
      </ion-buttons>
   </ion-toolbar>
@@ -28,8 +27,8 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12" >
-        <ion-chip color="primary" *ngFor="let genero of movies.genres">
-          <ion-label>Tags: {{genero.name}}</ion-label>
+        <ion-chip  *ngFor="let genero of movies.genres">
+          <ion-label>{{genero.name}}</ion-label>
         </ion-chip>
       </ion-col>
     </ion-row>
@@ -60,5 +59,4 @@
         </ion-card>
     </ion-slide>
   </ion-slides>
- 
 </ion-content>

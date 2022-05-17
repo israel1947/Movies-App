@@ -1,17 +1,47 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Search Movie
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
+<ion-toolbar>
+  <ion-searchbar placeholder="Search Movie..." 
+                 inputmode="decimal" 
+                 animated
+                 mode="ios"
+                 type="search" 
+                 (ionChange)="onSearchChange($event)" 
+                 debounce="700" 
+                 [value]="textSearch"
+                 showCancelButton="focus">
+  </ion-searchbar>
+</ion-toolbar>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list>
+      <ion-list-header>
+        <ion-label class="ion-text-center">
+          <h1>Popular Searches</h1>
+        </ion-label>
+      </ion-list-header>
+  </ion-list>
+  <ion-grid class="ion-padding" >
+    <ion-row *ngFor="let recomendations of popularity" (click)="textSearch = recomendations.title">
+      <ion-col size="4" >
+          <img class="poster" [src]="recomendations.poster_path | imagen" *ngIf="recomendations.poster_path">
+      </ion-col>
+      <ion-col size="8">
+        <ion-label color="primary" > {{recomendations.title}}</ion-label>
+        <p *ngIf="recomendations.overview">{{recomendations.overview | slice:0:isHiden}}...</p>
+        <ion-label  class="label-details">
+          <ion-icon slot="start" name="star" color="warning"></ion-icon>
+          <ion-note slot="end" color="primary"  >{{recomendations.vote_average}}</ion-note>
+        </ion-label>
+         <ion-label class="label-details">
+          <ion-icon slot="start" name="calendar-outline"></ion-icon>
+          <ion-note slot="end" color="primary"  >{{recomendations.release_date}}</ion-note>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

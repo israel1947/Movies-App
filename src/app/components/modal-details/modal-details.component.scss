@@ -2,34 +2,30 @@
  .title h1 {
      margin-top: 24px;
 } 
-
 .actor-name {
     position: relative;
     top:15px;
 }
-
-
 .img-backdrop{
     border-radius: 0px 0px 0px 186px;
-    //clip-path: polygon(100% 0%, 100% 52%, 100% 100%, 24% 100%, 15% 51%, 25% 0%);
 }
 
 .items-details{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .vote_average{
+    .vote-average{
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-evenly;
+        padding: 5px;
+        text-align: center;
+        border-radius: 10px;
+        background: rgba(55, 55, 55, 0.15);
+        backdrop-filter: blur( 8.5px );
         
     }
-    ion-icon{
-        margin: 0px 10px 0px 10px;
-    }
-
 }
-
 .toolbar{
     position: absolute;
     top: 20px;
@@ -39,10 +35,8 @@
     background: #E83333;
     background-color: transparent;
 }
-
 ion-toolbar{
     background-color: transparent;
-
     ion-buttons{
         width: 50px;
         height: 50px;
@@ -57,8 +51,12 @@ ion-toolbar{
             left: 15px;
         }
     }
-
-    
 }
+ion-chip{
+    color:var(--ion-color-primary);
+    background: rgba(211, 207, 203, 0.3);
+    backdrop-filter: blur( 5.5px );
+}
+
 
 
