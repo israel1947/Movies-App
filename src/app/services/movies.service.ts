@@ -16,6 +16,7 @@ export class MoviesService {
   private popularityPage:number=0;
   private _historial:string[]= [];
   public resultado:ResultMovies[]=[]
+  
   get historial(){
     return [...this._historial];
   }
