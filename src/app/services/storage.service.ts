@@ -9,15 +9,18 @@ import { MoviesDetails } from '../interfaces/interfaces';
 export class StorageService {
 
   movies:MoviesDetails[]=[];
+  
 
   constructor( private storage:Storage,
-               public toastController: ToastController) { this.loadFvorites()}
+               public toastController: ToastController
+) { this.loadFvorites()}
 
 
 
  async presentToast(message) {
     const toast = await this.toastController.create({
      message,
+     color:'primary',
      duration: 1000
     });
     toast.present();

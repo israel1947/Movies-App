@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { MoviesResponse, MoviesDetails, ResultMovies } from '../interfaces/interfaces';
+import { MoviesResponse, MoviesDetails, ResultMovies, Genre } from '../interfaces/interfaces';
 
 
 //call the api key defined in the enviroment
@@ -16,6 +16,7 @@ export class MoviesService {
   private popularityPage:number=0;
   private _historial:string[]= [];
   public resultado:ResultMovies[]=[]
+  genre:Genre[]=[]
   
   get historial(){
     return [...this._historial];
@@ -91,6 +92,18 @@ export class MoviesService {
     }
     localStorage.setItem('historial', JSON.stringify(this._historial));
     return this.ejectQuery(`/search/movie?query=${textSearch}`);
+  }
+
+  //load generos
+  loadGenero():Promise<Genre[]>{
+    return new Promise(resol=>{
+      this.ejectQuery(`/genre/movie/list?a=1`)
+        .subscribe(resp=>{
+          this.genre=resp['genres'];
+          console.log(this.genre);
+          resol(this.genre);
+        });
+    });
   }
 
 }

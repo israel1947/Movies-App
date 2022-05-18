@@ -44,7 +44,7 @@
         <ion-label class="ion-text-center">
           <h1>Historial</h1>
         </ion-label>
-        <ion-chip color="primary" mode="ios" outline="true"  *ngFor="let item of historial">
+        <ion-chip color="primary" mode="ios" outline="true" (click)="textSearch = item"  *ngFor="let item of historial">
           <ion-label>{{item}}</ion-label>
         </ion-chip> 
       </ion-col>

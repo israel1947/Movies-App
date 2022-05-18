@@ -17,7 +17,7 @@ export class ModalDetailsComponent implements OnInit {
   actors:Cast[]=[];
   isHiden=150;
   noImage:String='/assets/no-avatar.jpg';
-  favoriteIcons;
+  favoriteIcons='bookmark-outline';
 
   //options 
   slideOpts = {
@@ -33,21 +33,29 @@ export class ModalDetailsComponent implements OnInit {
                private storage:StorageService ) { }
 
    ngOnInit() {
+     
     //verifi if that movie exist
      this.storage.movieExist(this.id)
-      .then(exist=> this.favoriteIcons = (exist) ? 'bookmark' : 'bookmark-outline')
+      .then(exist=> this.favoriteIcons = (exist) ? 'bookmark' : 'bookmark-outline');
+
+      //get detail of movies
     this.moviesService.getDetailOfMovie(this.id)
       .subscribe(resp =>{
         console.log('detalles',resp);
         this.movies = resp;
       });
+
+      //get cast of movies
     this.moviesService.getActorsMovies(this.id)
       .subscribe(resp =>{
         this.actors = resp.cast;
       });
   }
+
+  
   onModalClose(){
     this.mdCtr.dismiss();
+    
   }
 
    onFavorite(){
