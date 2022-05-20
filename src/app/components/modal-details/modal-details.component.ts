@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MoviesService } from '../../services/movies.service';
 import { MoviesDetails, Cast, ResultVideoMovie } from '../../interfaces/interfaces';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { StorageService } from '../../services/storage.service';
 import { YoutubeVideoPlayer } from '@awesome-cordova-plugins/youtube-video-player/ngx';
 
@@ -22,6 +22,7 @@ export class ModalDetailsComponent implements OnInit {
   isHiden=150;
   noImage:String='/assets/no-avatar.jpg';
   favoriteIcons='bookmark-outline';
+  iconPlay='play';
 
   //options 
   slideOpts = {
@@ -35,51 +36,58 @@ export class ModalDetailsComponent implements OnInit {
   constructor( private moviesService:MoviesService,
                private mdCtr:ModalController,
                private storage:StorageService,
-               private youtube:YoutubeVideoPlayer ) { }
+               private youtube:YoutubeVideoPlayer,
+               public toastController: ToastController ) { }
 
-   ngOnInit() {
+    ngOnInit() {
      
     //verifi if that movie exist
-     this.storage.movieExist(this.id)
+      this.storage.movieExist(this.id)
       .then(exist=> this.favoriteIcons = (exist) ? 'bookmark' : 'bookmark-outline');
 
       //get detail of movies
-    this.moviesService.getDetailOfMovie(this.id)
+      this.moviesService.getDetailOfMovie(this.id)
       .subscribe(resp =>{
         //console.log('detalles',resp);
         this.movies = resp;
       });
 
       //get cast of movies
-    this.moviesService.getActorsMovies(this.id)
+      this.moviesService.getActorsMovies(this.id)
       .subscribe(resp =>{
         this.actors = resp.cast;
       });
-
-     
+      
     }
     
     
     onModalClose(){
       this.mdCtr.dismiss();
     }
-    async onPlay(){
-     this.video = await this.moviesService.VideoForMovie(this.id);
-     this.videoPeli(this.video);
-     this.youtube.openVideo(this.video[1].key.toString());
-     //console.log('prueba const',this.video);
-     console.log('prueba youtube',this.video[1].key.toString());
+    
+    async presentToast() {
+      const toast = await this.toastController.create({
+        message: `Sorry this movie dont't have a video`,
+        color:'primary',
+        duration: 2000,
+        buttons:[
+          {
+            text: 'Ok',
+            role: 'cancel',
+          }
+        ]
+      });
+      toast.present();
     }
-
-  videoPeli(video:ResultVideoMovie[]){
-    this.videos=[];
-    video.forEach(vide=>{
-      this.video.push({
-        key:vide.key
-      })
-      console.log(vide.key);
-      return vide;
-     })
+    
+    async onPlay(){
+      try {
+        this.video = await this.moviesService.VideoForMovie(this.id);
+        this.youtube.openVideo(this.video[0].key);
+        console.log('prueba youtube id',this.video[0].key);
+      } catch (error) {
+       this.presentToast();
+      }
     }
 
    onFavorite(){
