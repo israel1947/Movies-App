@@ -27,7 +27,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12" >
@@ -37,18 +36,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col >
-        <ion-chip color="primary" *ngFor="let item of videos">
-          <ion-label>{{item.key}}</ion-label>
-        </ion-chip>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12">
@@ -75,4 +62,27 @@
         </ion-card>
     </ion-slide>
   </ion-slides>
+  <ion-grid >
+    <ion-row>
+      <ion-col>
+        <h3 class="ion-no-margin">Similars Movies</h3>
+        <ion-item-divider >
+        </ion-item-divider>
+      </ion-col>
+    </ion-row> 
+  </ion-grid>
+<ion-slides >
+  <ion-slide *ngFor="let similar of simObjt ">
+    <ion-card (click)="onShowModal(similar.idee)">
+      <ion-img  [src]="similar.moviImg | imagen" *ngIf="similar.moviImg"></ion-img>
+      <ion-img  [src]="npImageMovi" *ngIf="!similar.moviImg"></ion-img>
+      <ion-footer>
+        <ion-toolbar>
+          <ion-title>{{similar.nbre}}</ion-title>
+        </ion-toolbar>
+      </ion-footer>
+    </ion-card>
+    <app-slideshow-poster  [recientMovies]="similar.movi"></app-slideshow-poster>
+  </ion-slide>
+</ion-slides>
 </ion-content>

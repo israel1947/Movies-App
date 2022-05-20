@@ -37,7 +37,6 @@ export class Tab2Page implements OnInit {
       this.movieServices.getSearchMovie(valueSearch)
       .subscribe(resp=>{
         this.movies = resp['results'];
-        console.log(resp);
         this.load = false;
       })
   }

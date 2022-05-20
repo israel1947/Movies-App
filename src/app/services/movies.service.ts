@@ -1,13 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { MoviesResponse, MoviesDetails, ResultMovies, Genre, VideoMovie, ResultVideoMovie,} from '../interfaces/interfaces';
+import { MoviesResponse, MoviesDetails, ResultMovies, Genre,  ResultVideoMovie,} from '../interfaces/interfaces';
 
 
-//call the api key defined in the enviroment
 const api_key = environment.api_key;
 const URL = environment.url
-
 @Injectable({
   providedIn: 'root'
 })
@@ -15,9 +13,10 @@ export class MoviesService {
 
   private popularityPage:number=0;
   private _historial:string[]= [];
-  public resultado:ResultMovies[]=[]
-  public genre:Genre[]=[]
-  public video:ResultVideoMovie[]=[]
+  public resultado:ResultMovies[]=[];
+  public genre:Genre[]=[];
+  public video:ResultVideoMovie[]=[];
+  public similar:ResultMovies[]=[];
   
   get historial(){
     return [...this._historial];
@@ -27,18 +26,16 @@ export class MoviesService {
 
     if( localStorage.getItem('historial') ){
       this._historial=JSON.parse( localStorage.getItem('historial')!);
-    }
+      }
 
     if(localStorage.getItem('resultado') ){
       this.resultado=JSON.parse( localStorage.getItem('resultado')!);
-    }
-
+      }
    }
 
   private ejectQuery<T>(query:string){
     query =  URL + query;
     query += `&language=es&api_key=${api_key}`;
-    console.log(query)
     return this.hppt.get<T>(query);
   } 
 
@@ -74,11 +71,12 @@ export class MoviesService {
     return this.ejectQuery<MoviesResponse>(query);
   }
 
+  //get details of movie
   getDetailOfMovie(id){
     return this.ejectQuery<MoviesDetails>(`/movie/${id}?a=1`);
   }
 
-  //https://api.themoviedb.org/3/movie/628900?api_key=d0dfa05a65b3a18bd432149a75bb9f84
+  //get cast of movie
   getActorsMovies(id){
     return this.ejectQuery<MoviesDetails>(`/movie/${id}/credits?a=1`);
   }
@@ -102,7 +100,6 @@ export class MoviesService {
       this.ejectQuery(`/genre/movie/list?a=1`)
         .subscribe(resp=>{
           this.genre=resp['genres'];
-          //console.log(this.genre);
           resol(this.genre);
         });
     });
@@ -114,10 +111,22 @@ export class MoviesService {
       return this.ejectQuery(`/movie/${movie_id}/videos?a=1`)
       .subscribe(resp=>{
         this.video= resp['results'];
-        console.log(this.video);
         resol(this.video);
       })
     })
+  }
+
+  //get similar movies
+  similarMovies(movie_id):Promise<ResultMovies[]>{
+    return new Promise(resol=>{
+      return this.ejectQuery(`/movie/${movie_id}/similar?a=1`)
+        .subscribe(resp=>{
+          this.similar=resp['results'];
+          resol(this.similar);
+        })
+      
+    })
+       
   }
 
 }
