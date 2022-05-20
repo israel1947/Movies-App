@@ -57,6 +57,7 @@ export interface MoviesDetails {
     vote_average?: number;
     vote_count?: number;
     cast?:Cast[];
+    movie?:VideoMovie[],
   }
   
   interface Spokenlanguage {
@@ -108,3 +109,21 @@ export interface MoviesDetails {
     order: number;
     profile_path?: string;
   }
+
+  export interface VideoMovie {
+    id?:      number;
+    results?: ResultVideoMovie[];
+}
+
+export interface ResultVideoMovie {
+    iso_639_1?:    string;
+    iso_3166_1?:   string;
+    name?:         string;
+    key?:          string;
+    site?:         string;
+    size?:         number;
+    type?:         string;
+    official?:     boolean;
+    published_at?: Date;
+    id?:           string;
+}

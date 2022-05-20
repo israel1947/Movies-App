@@ -1,8 +1,11 @@
 <ion-content>
-  <ion-toolbar class="toolbar" color="transparent">
+  <ion-toolbar class="toolbar" color="transparent" >
     <ion-buttons slot="start" (click)="onModalClose()">
         <ion-icon name="arrow-back-outline"></ion-icon>
-    </ion-buttons>
+    </ion-buttons >
+     <ion-buttons class="ion-margin-end" slot="end" (click)="onPlay()" >
+      <ion-icon  name="play" ></ion-icon>
+     </ion-buttons> 
     <ion-buttons class="ion-margin-end" slot="end" (click)="onFavorite()">
       <ion-icon  [name]="favoriteIcons" ></ion-icon>
      </ion-buttons>
@@ -24,6 +27,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12" >
@@ -33,6 +37,18 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col >
+        <ion-chip color="primary" *ngFor="let item of videos">
+          <ion-label>{{item.key}}</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12">

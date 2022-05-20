@@ -7,7 +7,9 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+//plugins
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { YoutubeVideoPlayer } from '@awesome-cordova-plugins/youtube-video-player/ngx';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     IonicStorageModule.forRoot()
   ],
   providers: [
+    YoutubeVideoPlayer,
     { provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy
      }
